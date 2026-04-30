@@ -71,6 +71,8 @@ const loginUser = async(req,res)=>{
         role: user.role,
     },process.env.JWT_SECRET)
 
+    res.cookie("token",token);
+
     res.status(201).json({
         message: "User login successfull",
         user:{
@@ -78,8 +80,16 @@ const loginUser = async(req,res)=>{
             username: user.username,
             email: user.email,
             role: user.role,
+            token
         }
     })
 }
 
-module.exports = {registerUser,loginUser}
+const logOut = async(req,res)=>{
+    res.clearCookie("token");
+    res.status(200).json({
+        msg: "user logout successfull"
+    })
+}
+
+module.exports = {registerUser,loginUser,logOut}
