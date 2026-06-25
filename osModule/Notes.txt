@@ -1,0 +1,38 @@
+Creating the node application: 
+
+command:  npm init 
+
+
+npm : node package manager => It is responsible to manage all the 
+packages that gets created using node.js. 
+
+package => application. 
+
+
+Node Modules: 
+
+There are pre-defined modules in node.js 
+
+some of the built-in modules are: 
+
+1. http - create an http server 
+
+2. os - to know about operating system 
+
+3. path - to work with file paths 
+
+4. fs - to work with files 
+
+5. events - to perform event driven programming 
+
+6. crypto - for encryption and hasing 
+
+7.url - to handle urls
+
+8.querystring - to get the querystring values from a URL. 
+
+
+
+
+
+
