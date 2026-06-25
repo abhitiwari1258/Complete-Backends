@@ -1,0 +1,39 @@
+1. What is HTTP?
+
+HTTP (HyperText Transfer Protocol) is the protocol used for communication between: Client (Browser) and Server (Node.js)
+
+Importing HTTP Module
+const http = require("http");
+
+
+HTTP Status Codes
+
+Success
+200 OK
+201 Created
+204 No Content
+
+Client Errors
+400 Bad Request
+401 Unauthorized
+403 Forbidden
+404 Not Found
+
+Server Errors
+500 Internal Server Error
+503 Service Unavailable
+
+
+Content-Type
+
+res.writeHead(200, {"Content-Type": "text/plain"});
+
+res.setHeader("Content-Type", "application/json");
+res.setHeader("Content-Type", "text/html");
+res.setHeader("Content-Type", "text/plain");
+
+css         text/css
+JavaScript	application/javascript
+PNG Image	image/png
+JPEG Image	image/jpeg
+PDF	        application/pdf 
