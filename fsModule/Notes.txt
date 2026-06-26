@@ -1,0 +1,29 @@
+The fs (File System) module is one of the most important core modules in Node.js. It allows you to create, read, update, delete, rename, copy, move, and manage files and directories.
+
+importing fs
+const fs = require("fs");
+
+Types of fs APIs
+
+1. Synchronous
+Blocks the execution until work finishes.
+
+2. Asynchronous (Callback)
+Doesn't block the thread.
+
+3. Promise API
+Modern applications mostly use this.
+
+
+Reading Files
+
+readFile()
+fs.readFile("data.txt","utf8",(err,data)=>{
+
+});
+
+Writing Files
+Creates new file if not exists.
+Overwrites existing file.
+
+fs.writeFile("test.txt","Hello Node",(err)=>{});
