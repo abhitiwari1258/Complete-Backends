@@ -1,0 +1,138 @@
+1. What are Events?
+
+An event is simply something that happens during the execution of your program.
+
+Every event has an event handler and this event handler is a callback function that handles the event. 
+
+EventEmitter is a built-in Node.js class that provides the ability to register listeners and emit events.
+
+.on() takes two arguments:
+
+Event name (a string)
+Listener function (callback)
+
+When you call .on(), it registers a listener for that event. It does not trigger the event.
+
+Later, when you call .emit(), Node.js emits (triggers) that event, and all the registered listener functions for that event are executed.
+
+Examples:
+
+A file is read
+A user connects to the server
+A button is clicked (browser)
+A request arrives
+A stream receives data
+A timer finishes
+
+Program Running -> Something Happens -> Event Occurs -> Run Callback Function
+
+
+Creating events :
+
+3. EventEmitter :
+
+const EventEmitter = require("events");
+const emitter = new EventEmitter();
+
+
+4. Registering an Event (on)
+
+const EventEmitter = require("events");
+
+const emitter = new EventEmitter();
+
+emitter.on("greet", () => {
+    console.log("Hello");
+});
+
+
+5. Triggering an Event (emit)
+emitter.emit("greet");
+
+
+6. Passing Data
+
+const EventEmitter = require("events");
+const emitter = new EventEmitter();
+emitter.on("login", (name) => {
+    console.log(`${name} logged in`);
+});
+
+emitter.emit("login", "Abhishek");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PS: Create simple group chat implementation using events. 
+
+
+const event = require('events');
+const chatGroup = new event.EventEmitter();
+
+var activeUsers = [];
+
+chatGroup.on('updateAuditLogs',(eventType, userName) => {
+    const fs = require('fs');
+    const logEntry = `${new Date().toISOString()} - ${eventType} - ${userName ? userName : ''}\n`;      
+    fs.appendFile('audit_log.txt', logEntry, (err) => {
+        if (err) throw err;
+    });
+});
+
+chatGroup.on('join',(name) =>{
+    console.log(`${name} has joined the chat group.`);
+    activeUsers.push(name);
+    chatGroup.emit('updateAuditLogs','join', name);
+  //  auditLogs.push({event: 'join', user: name, timestamp: new Date()});
+})
+
+chatGroup.on('leave',(name) =>{
+    console.log(`${name} has left the chat group.`);
+    activeUsers.splice(activeUsers.indexOf(name), 1);
+    chatGroup.emit('updateAuditLogs','leave', name);
+  //  auditLogs.push({event: 'leave', user: name, timestamp: new Date()});
+});
+
+chatGroup.on('fetchActiveUsers',() =>{
+    activeUsers.forEach((user) => {
+        console.log(`Active User: ${user}`);
+    });
+    console.log(`Total Active Users: ${activeUsers.length}`);
+    chatGroup.emit('updateAuditLogs','fetchActiveUsers');
+  //  auditLogs.push({event: 'fetchActiveUsers', timestamp: new Date()});
+});
+
+chatGroup.on('message',(name,message) =>{
+    console.log(`${name}: ${message}`);
+    chatGroup.emit('updateAuditLogs','message', name);
+});
+
+chatGroup.emit('join','Kashyap');
+chatGroup.emit('join','Sai');
+chatGroup.emit('message','Kashyap','Hello everyone!');
+chatGroup.emit('message','Sai','Hi Kashyap!');
+chatGroup.emit('leave','Sai');
+chatGroup.emit('join','Anjali');
+chatGroup.emit('message','Anjali','Hey Kashyap!');
+chatGroup.emit('leave','Kashyap');
+chatGroup.emit('fetchActiveUsers');
+
+
+// write the audit logs to a file called audit_log.txt
+
+// remove the array for audit logs, for each action/event, add code to upadate the audit log file
+
+
+
+// implement audit logs. Each time a user joins, leaves, or sends a message, log the event with a timestamp in an array.
+
