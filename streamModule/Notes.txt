@@ -1,0 +1,91 @@
+What is a Stream?
+
+A stream is a way to process data piece by piece (in chunks) instead of loading the entire data into memory at once.
+
+Stream: Stream is flow of data in bits and peices (chunks). 
+Streaming helps in providing good user experience because the fs module provides the methods that reads / writes the entire content at once due to which the user needs to wait until the operation is completed. 
+
+.on() is a method used to listen for an event.
+object.on(eventName, callback);
+
+Best examples where streaming is used are: 
+
+1. Video Streaming - Netflix, Youtube and so on 
+
+2. Audio Streaming - Gaana, Spotify... 
+
+3. Uploading, Downloading files,Compression,Encryptionm Reading huge CSV files
+
+Types of Streams :
+
+1. Readable Stream : Reads data from a source.
+Eg :   File , HTTP request body
+const readStream = fs.createReadStream("data.txt");
+
+2. Writable Stream : Writes data to a destination.
+const writeStream = fs.createWriteStream("output.txt");
+
+3. Duplex Stream : Can read and write.
+TCP socket, Network connection
+
+4. Transform Stream : Reads, modifies, and writes.
+Compression, Encryption, 
+
+What is pipe()?
+pipe() is a method that connects a Readable Stream to a Writable Stream.
+Instead of manually reading chunks and writing them,
+
+Events in Streams
+Streams are event-driven.
+
+data : Triggered whenever a chunk arrives.
+end : No more data.
+error : Always handle errors.
+close : Triggered when the stream closes.
+finish : For writable streams.
+High Water Mark : Controls chunk size.
+default : 64kb
+const stream = fs.createReadStream("big.txt", {
+    highWaterMark: 1024
+});
+
+Now each chunk is 1 KB.
+
+
+
+
+Why do we need Streams?
+
+Imagine you have a 5 GB video.
+
+Without Streams :
+const data = fs.readFileSync("movie.mp4");
+
+Memory usage:
+Disk
+   │
+   ▼
+5 GB loaded into RAM
+
+Problems:
+
+High memory usage
+Slow startup
+Can crash your application 
+
+
+With Streams :
+const stream = fs.createReadStream("movie.mp4");
+
+Memory:
+Disk
+ │
+ ▼
+64 KB
+ ▼
+64 KB
+ ▼
+64 KB
+
+Only small chunks are in memory at a time.
+
